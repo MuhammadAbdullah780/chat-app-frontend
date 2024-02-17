@@ -18,6 +18,8 @@ type Props<T extends React.ElementType> = VariantProps<
   lg?: VariantProps<typeof flexLgVariants>;
 };
 
+const f: ComponentPropsWithoutRef<"input"> = {};
+
 const Flex = <T extends React.ElementType = "div">({
   as,
   children,

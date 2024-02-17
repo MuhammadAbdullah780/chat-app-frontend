@@ -1,4 +1,4 @@
-import ConversationItemSkeleton from "@/components/loaders/ConversationItemSkeleton";
+import ConversationItemSkeleton from "@/components/common/ConversationItemSkeleton";
 import ConversationItem from "@components/common/ConversationItem";
 import { chatConversationList } from "@site-data/chat/listing";
 

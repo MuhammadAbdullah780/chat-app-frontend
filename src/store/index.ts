@@ -1,4 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import uiReducer from "./slices/ui";
+import chatReducer from "./slices/chat";
 
 // Logic for combining the reducers
 const combinedReducer = combineReducers({});
@@ -12,7 +14,10 @@ const rootReducer = (state: any, action: any) => {
 
 // Store Configurations
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    ui: uiReducer,
+    chats: chatReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

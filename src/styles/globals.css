@@ -66,4 +66,8 @@
   .scale-on-tap {
     @apply active:scale-[0.90] transition-all duration-75;
   }
+
+  .link {
+    @apply cursor-pointer;
+  }
 }

@@ -1,6 +1,7 @@
+import withAuth from "@/components/HOC/withAuth";
+import { NextPageWithLayout } from "@/typings/types/next-layout.type";
 import SidebarLayout from "@components/common/layout/SidebarLayout";
 import ChatContainer from "@containers/Chat";
-import { NextPageWithLayout } from "@typings/types/next-layout";
 
 const ChatPage: NextPageWithLayout = () => {
   return <ChatContainer />;

@@ -16,9 +16,9 @@ const IconWrapper = ({
 
   return (
     <Component
-      className={cn([allowScalingWhileTap && "scale-on-tap", className])}
       size={20}
       {...props}
+      className={cn([allowScalingWhileTap && "scale-on-tap", className])}
     />
   );
 };

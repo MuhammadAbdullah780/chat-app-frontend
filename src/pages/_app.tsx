@@ -1,10 +1,8 @@
-import { NextPageWithLayout } from "@typings/types/next-layout";
-import { SessionProvider as AuthProvider } from "next-auth/react";
-import { AppProps } from "next/app";
-import { Provider as ReduxProvider } from "react-redux";
+import GlobalModal from "@/components/modals";
+import AppProvider from "@/components/providers";
+import { NextPageWithLayout } from "@/typings/types/next-layout.type";
 import "@styles/globals.css";
-import store from "@store/index";
-import AppWrapper from "@/components/providers";
+import { AppProps } from "next/app";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -18,8 +16,9 @@ export default function App({
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <AppWrapper session={session}>
+    <AppProvider session={session}>
+      <GlobalModal />
       {getLayout(<Component {...pageProps} />)}
-    </AppWrapper>
+    </AppProvider>
   );
 }

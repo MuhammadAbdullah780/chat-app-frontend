@@ -9,28 +9,41 @@ type Props = VariantProps<typeof variants> & {
 };
 
 const variants = cva(
-  "animate-spin inline-block border-[3px] border-current border-t-transparent text-primary rounded-full",
+  "animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full",
   {
     variants: {
       size: {
+        extra_small: "w-4 h-4 border-[2px]",
         small: "w-6 h-6",
         middle: "w-8 h-8",
         large: "w-12 h-12",
       },
+      spinnerColor: {
+        default: "text-primary",
+        white: "text-white",
+      },
     },
     defaultVariants: {
       size: "middle",
+      spinnerColor: "default",
     },
   },
 );
 
-const Spinner = ({ size, className, wrapperClassName }: Props) => {
+const Spinner = ({
+  size,
+  className,
+  wrapperClassName,
+  spinnerColor,
+}: Props) => {
   return (
     <Flex
       align="center"
       justify="center"
       className={cn("w-full h-full", wrapperClassName)}>
-      <div className={cn([variants({ size }), className])} aria-label="loading">
+      <div
+        className={cn([variants({ size, spinnerColor }), className])}
+        aria-label="loading">
         <span className="sr-only">Loading...</span>
       </div>
     </Flex>

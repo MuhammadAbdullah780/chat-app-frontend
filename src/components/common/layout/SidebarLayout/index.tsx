@@ -16,5 +16,4 @@ const SidebarLayout = ({ children }: Props) => {
     </Flex>
   );
 };
-
 export default SidebarLayout;

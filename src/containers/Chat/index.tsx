@@ -1,36 +1,34 @@
-import IconWrapper from "@/components/common/IconWrapper";
-import { Input } from "@/components/ui/Input";
+import Spinner from "@/components/common/Spinner";
+import { useAppSelector } from "@/store/hooks";
+import { useGlobalTabValidation } from "@/utils/hooks/use-global-tabs-validator";
 import Flex from "@components/common/Flex";
-import { ScrollArea } from "@components/ui/ScrollArea";
-import { Separator } from "@components/ui/Seperator";
-import { signInUser } from "@services/auth";
-import { useEffect } from "react";
-import { IoFilterSharp } from "react-icons/io5";
-import ChatListing from "./ChatListing";
-import ChatListingTitle from "./Title";
-import SearchInput from "./SearchInput";
 import IndividualChatContainer from "./IndividualChatContainer";
+import ChatSidebar from "./Sidebar";
+import { ChatListingViewMode } from "./Sidebar/typings";
+import { useUpdateEffect } from "@/utils/hooks/use-update-effect";
+import { GlobalTabKeys } from "@/typings/enums/global-tab-keys";
 
 const ChatContainer = () => {
-  useEffect(() => {
-    signInUser();
-  }, []);
+  const loading = !useAppSelector((state) => state.ui.globalTabs.initialCheck);
+
+  useGlobalTabValidation({
+    params: [
+      {
+        tabKey: GlobalTabKeys.VIEW_MODE,
+        possibilities: Object.values(ChatListingViewMode),
+        fallback: ChatListingViewMode.CHATS,
+      },
+    ],
+  });
+
+  if (loading) {
+    return <Spinner wrapperClassName="h-screen" />;
+  }
 
   return (
     <Flex className="w-full h-screen">
       <section className="min-w-[350px] border bg-primary-foreground">
-        <Flex vertical className="gap-4 w-full p-4 h-screen">
-          <ChatListingTitle text="Chats" />
-          {/* Search Bar */}
-          <SearchInput />
-          <Separator />
-          {/* MAPPING THE CONVERSATION LISTS */}
-          <ScrollArea className="w-full flex-1 gap-2 pr-3 h-screen">
-            <Flex vertical className="gap-3">
-              <ChatListing />
-            </Flex>
-          </ScrollArea>
-        </Flex>
+        <ChatSidebar />
       </section>
       <section className="flex-1">
         <IndividualChatContainer />
