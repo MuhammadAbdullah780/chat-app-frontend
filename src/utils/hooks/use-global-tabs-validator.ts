@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { changeInitialCheck } from "@/store/slices/ui/global-tabs.slice";
+// import { changeInitialCheck } from "@/store/slices/ui/global-tabs.slice";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useGlobalTabFunctions } from "./use-global-tab-functions";
@@ -18,7 +18,7 @@ export const useGlobalTabValidation = ({ params }: GlobalTabValidatorArgs) => {
   const { openTab, closeTab } = useGlobalTabFunctions();
 
   const tabs = useAppSelector((state) => state.ui.globalTabs.activeTabs);
-  const check = useAppSelector((state) => state.ui.globalTabs.initialCheck);
+  // const check = useAppSelector((state) => state.ui.globalTabs.initialCheck);
 
   useEffect(() => {
     if (!router.isReady) {
@@ -30,7 +30,7 @@ export const useGlobalTabValidation = ({ params }: GlobalTabValidatorArgs) => {
       const { tabKey, fallback, possibilities } = elem;
 
       if (!router.query?.[tabKey]) {
-        dispatch(changeInitialCheck({ value: true }));
+        // dispatch(changeInitialCheck({ value: true }));
         setMounted(true);
         return;
       }
@@ -55,7 +55,7 @@ export const useGlobalTabValidation = ({ params }: GlobalTabValidatorArgs) => {
 
   useEffect(() => {
     //
-    if (!check) return;
+    // if (!check) return;
 
     params?.forEach((item) => {
       const { tabKey } = item;

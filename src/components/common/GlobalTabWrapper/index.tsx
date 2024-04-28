@@ -11,11 +11,11 @@ type Props = {
 };
 
 const GlobalTabWrapper: React.FC<Props> = ({ tabsConfig, tabKey }) => {
-  // Tabs
   const tabs = useAppSelector((state) => state.ui.globalTabs.activeTabs);
 
-  const Component = tabsConfig.find((item) => item.id === tabs?.[tabKey!])
-    ?.component!;
+  const Component = tabsConfig.find(
+    (item) => item.id === tabs?.[tabKey!]?.current,
+  )?.component!;
 
   return <Component />;
 };

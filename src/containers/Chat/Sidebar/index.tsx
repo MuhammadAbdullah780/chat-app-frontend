@@ -2,7 +2,6 @@ import Flex from "@/components/common/Flex";
 import GlobalTabWrapper from "@/components/common/GlobalTabWrapper";
 import React from "react";
 import { sideBarTabConfig } from "./config";
-import { useGlobalTabValidation } from "@/utils/hooks/use-global-tabs-validator";
 
 const ChatSidebar: React.FC = () => {
   return (

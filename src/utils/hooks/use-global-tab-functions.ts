@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  openTab as openGlobalTab,
+  setTab as openGlobalTab,
   closeTab as closeGlobalTab,
-  changeTab as changeGlobalTab,
+  resetTab as changeGlobalTab,
 } from "@/store/slices/ui/global-tabs.slice";
 import { useRouter } from "next/router";
 import { useQueryRouter } from "./use-query-router";
@@ -15,30 +15,29 @@ export const useGlobalTabFunctions = () => {
   // Hooks
   const { query } = useRouter();
   const dispatch = useAppDispatch();
-  const { pushParams, deleteParam, updateParam } = useQueryRouter();
+  // const { pushParams, deleteParam, updateParam } = useQueryRouter();
 
   const activeTabs = useAppSelector((state) => state.ui.globalTabs.activeTabs);
 
   // Functions
   const openTab = async ({ key, val }: GlobalTabFuncArgs) => {
-    if (query?.[key] && activeTabs?.[key]) return;
+    // if (query?.[key] && activeTabs?.[key]) return;
 
     await dispatch(openGlobalTab({ key, val }));
 
-    await pushParams({ [key]: val });
+    // await pushParams({ [key]: val });
     console.log("PARAMS__", { activeTabs, query });
   };
   const closeTab = async ({ key }: Pick<GlobalTabFuncArgs, "key">) => {
     // if (!(query?.[key] && !activeTabs?.[key])) return;
 
     await dispatch(closeGlobalTab({ key }));
-    await deleteParam(key);
+    // await deleteParam(key);
   };
   const changeTab = async ({ key, val }: GlobalTabFuncArgs) => {
-    if (!(query?.[key] && activeTabs?.[key])) return;
-
-    await dispatch(changeGlobalTab({ key, val }));
-    await updateParam(key, val);
+    // if (!(query?.[key] && activeTabs?.[key])) return;
+    // await dispatch(changeGlobalTab({ key, val }));
+    // await updateParam(key, val);
   };
 
   return {

@@ -1,8 +1,15 @@
+import { ChatListingViewMode } from "@/containers/Chat/Sidebar/typings";
+import { GlobalTabKeys } from "@/typings/enums/global-tab-keys";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type TabSlice = {
-  initialCheck?: boolean;
-  activeTabs: Record<string, string>;
+  activeTabs: Record<
+    string,
+    {
+      history: string[];
+      current: string;
+    }
+  >;
   // later On Manage History Features
 };
 type CloseTabArgs = PayloadAction<{
@@ -12,14 +19,14 @@ type OpenTabArgs = PayloadAction<{
   key: string;
   val: string;
 }>;
-type ChangeTabArgs = PayloadAction<{ key: string; val: string }>;
-type ChangeInitialCheckArgs = PayloadAction<{
-  value: boolean;
-}>;
 
 const initialState: TabSlice = {
-  initialCheck: false,
-  activeTabs: {},
+  activeTabs: {
+    [GlobalTabKeys.VIEW_MODE]: {
+      current: ChatListingViewMode.CHATS,
+      history: [],
+    },
+  },
 };
 
 const globalTabSlice = createSlice({
@@ -28,42 +35,28 @@ const globalTabSlice = createSlice({
   reducers: {
     closeTab: (state, { payload }: CloseTabArgs) => {
       const tabs = state.activeTabs;
-      if (!state.activeTabs?.[payload.key]) {
-        //
-        return;
-      } else {
-        //
-        delete tabs?.[payload.key];
-      }
-
+      delete tabs?.[payload.key];
       state.activeTabs = tabs;
     },
-    openTab: (state, { payload }: OpenTabArgs) => {
-      if (state.activeTabs?.[payload.key]) {
-        //
+    setTab: (state, { payload }: OpenTabArgs) => {
+      if (state.activeTabs[payload.key].history.includes(payload.val)) {
         return;
-      } else {
-        //
-        state.activeTabs = { ...state.activeTabs, [payload.key]: payload.val };
       }
 
-      state.initialCheck = true;
+      state.activeTabs[payload.key].current = payload?.val;
+      state.activeTabs[payload.key].history.push(payload?.val);
     },
-    changeTab: (state, { payload }: ChangeTabArgs) => {
-      if (!state.activeTabs?.[payload.key]) {
-        //
-        return;
-      } else {
-        //
-        state.activeTabs = { ...state.activeTabs, [payload.key]: payload.val };
-      }
+    resetTab: (state) => {
+      state = initialState;
     },
-    changeInitialCheck: (state, { payload }: ChangeInitialCheckArgs) => {
-      state.initialCheck = payload.value;
+    goPreviousTab: (state, { payload }: PayloadAction<{ key: string }>) => {
+      state.activeTabs[payload.key].history.pop();
+      const previous = state.activeTabs[payload.key].history?.at(-1);
+      state.activeTabs[payload.key].current = previous!;
     },
   },
 });
 
-export const { closeTab, openTab, changeTab, changeInitialCheck } =
+export const { closeTab, resetTab, setTab, goPreviousTab } =
   globalTabSlice.actions;
 export default globalTabSlice.reducer;

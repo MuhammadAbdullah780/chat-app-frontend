@@ -11,7 +11,7 @@ type Props = {};
 const ChatsView = (props: Props) => {
   return (
     <>
-      <ListingTitle icon onIconClick={() => alert("aasas")} text="Chats" />
+      <ListingTitle text="Chats" />
       {/* Search Bar */}
       <SearchInput />
       <Separator />

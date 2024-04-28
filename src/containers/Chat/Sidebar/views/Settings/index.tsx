@@ -1,24 +1,23 @@
 import Flex from "@/components/common/Flex";
-import ListingTitle from "@/containers/Chat/Title";
-import React from "react";
-import { goPrevViewMode } from "../../function";
-import UserInfo from "@/components/common/UserInfo";
-import { DEFAULT_IMAGE_URL } from "@/utils/constants";
-import { settingsTabTriggers } from "./config";
-import { Separator } from "@/components/ui/Seperator";
 import IconWrapper from "@/components/common/IconWrapper";
-import { useGlobalTabFunctions } from "@/utils/hooks/use-global-tab-functions";
-import { useModal } from "@/components/modals/hook";
+import UserInfo from "@/components/common/UserInfo";
 import ModalTrigger from "@/components/modals/components/ModalTrigger";
+import { Separator } from "@/components/ui/Seperator";
+import ListingTitle from "@/containers/Chat/Title";
+import { useAppDispatch } from "@/store/hooks";
+import { setTab } from "@/store/slices/ui/global-tabs.slice";
+import { DEFAULT_IMAGE_URL } from "@/utils/constants";
+import { goPrevViewMode } from "../../function";
+import { settingsTabTriggers } from "./config";
 
 type Props = {};
 
 const SettingsView = (props: Props) => {
-  const { changeTab } = useGlobalTabFunctions();
+  const dispatch = useAppDispatch();
 
   return (
     <Flex vertical className="w-full gap-8 h-full">
-      <ListingTitle text="Settings" icon onIconClick={goPrevViewMode} />
+      <ListingTitle text="Settings" />
       <UserInfo
         text="Muhammad Abdullah"
         subText="Exploring"
@@ -43,7 +42,9 @@ const SettingsView = (props: Props) => {
               ) : (
                 <Flex
                   onClick={() =>
-                    changeTab({ key: item?.tabKey!, val: item?.tabValue! })
+                    dispatch(
+                      setTab({ key: item?.tabKey!, val: item?.tabValue! }),
+                    )
                   }
                   align="center"
                   justify="start"

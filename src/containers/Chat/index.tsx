@@ -9,21 +9,17 @@ import { useUpdateEffect } from "@/utils/hooks/use-update-effect";
 import { GlobalTabKeys } from "@/typings/enums/global-tab-keys";
 
 const ChatContainer = () => {
-  const loading = !useAppSelector((state) => state.ui.globalTabs.initialCheck);
+  // const loading = !useAppSelector((state) => state.ui.globalTabs.initialCheck);
 
-  useGlobalTabValidation({
-    params: [
-      {
-        tabKey: GlobalTabKeys.VIEW_MODE,
-        possibilities: Object.values(ChatListingViewMode),
-        fallback: ChatListingViewMode.CHATS,
-      },
-    ],
-  });
-
-  if (loading) {
-    return <Spinner wrapperClassName="h-screen" />;
-  }
+  // useGlobalTabValidation({
+  //   params: [
+  //     {
+  //       tabKey: GlobalTabKeys.VIEW_MODE,
+  //       possibilities: Object.values(ChatListingViewMode),
+  //       fallback: ChatListingViewMode.CHATS,
+  //     },
+  //   ],
+  // });
 
   return (
     <Flex className="w-full h-screen">
